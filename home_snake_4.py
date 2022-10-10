@@ -86,3 +86,80 @@ my_file.close()
 
 # 5. Даны два файла, в каждом из которых находится запись многочлена. Задача - сформировать файл, содержащий сумму многочленов.
 # Коэффициенты могут быть как положительными, так и отрицательными. Степени многочленов могут отличаться.
+
+with open("5_one.txt", "r") as file:
+    poly_1 = file.read()
+with open("5_one_too.txt", "r") as file:
+    poly_2 = file.read()
+
+
+poly_1 = poly_1.split()
+poly_2 = poly_2.split()
+
+poly_temp = []
+poly_temp_exmax = []
+
+if len(poly_1) > len(poly_2):
+    poly_max = poly_1
+    poly_min = poly_2
+    temp = len(poly_1) - len(poly_2)
+    for i in range(temp - 1):
+        poly_temp.append(poly_1[i])
+    for i in range(len(poly_1) + 1 - temp):
+        poly_temp_exmax.append(poly_1[i + temp - 1])   
+else:
+    poly_max = poly_2
+    poly_min = poly_1
+    temp = len(poly_2) - len(poly_1)
+    for i in range(temp - 1):
+        poly_temp.append(poly_2[i])
+    for i in range(len(poly_2) + 1 - temp):
+        poly_temp_exmax.append(poly_2[i + temp - 1])
+
+
+print(poly_max)
+print(poly_temp)
+print(poly_min)
+print(poly_temp_exmax)
+
+poly_min = (" ".join(poly_min))
+poly_temp_exmax = (" ".join(poly_temp_exmax))
+
+def poly_cortege(poly_string):
+    poly_string = str.replace(poly_string, "- ", "+ -").split()
+    poly_string = list(filter(lambda x: x != "+" and x != "=" and x != "0", poly_string))
+    for i in range(len(poly_string)):
+        poly_string[i] = poly_string[i].split("*")
+    return poly_string
+
+poly_min = poly_cortege(poly_min)
+poly_temp_exmax = poly_cortege(poly_temp_exmax)
+
+print(poly_min)
+print(poly_temp_exmax)
+poly_result = []
+
+for i in range(len(poly_min)):
+    poly_result.append(int(poly_min[i][0]) + int(poly_temp_exmax[i][0]))
+    poly_temp_exmax[i][0] = str(poly_result[i])
+
+print(poly_result)
+print(poly_temp_exmax)
+
+for i in range(len(poly_temp_exmax)):
+    if i == len(poly_temp_exmax) - 1:
+        poly_result[i] = str(poly_temp_exmax[i][0]) + " = 0"
+    else:
+        poly_result[i] = str(poly_temp_exmax[i][0]) + "*" + str(poly_temp_exmax[i][1]) + " +"
+
+
+poly_result = (" ".join(map(str,poly_result)))
+poly_result = str.replace(poly_result, "-", "- ")
+poly_temp = (" ".join(map(str,poly_temp))) + " "
+
+poly_result = poly_temp + poly_result
+print(poly_result)
+
+my_file = open("5_result.txt", "a+")
+my_file.write(poly_result)
+my_file.close()
