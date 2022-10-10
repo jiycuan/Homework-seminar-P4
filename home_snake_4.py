@@ -2,7 +2,7 @@
 
 d = float(input('Укажите число в формате "0.001", опционально меняя количество нулей. Единица отсекает до какой точки число π должно быть посчитано верно: '))
 
-enjoy = 0
+temp = 0
 divisor = 1
 factor = 1
 leibniz_cur = 1
@@ -12,11 +12,11 @@ def leibniz(a, b):
 
 while abs(leibniz_cur) > d / 10:
     leibniz_cur = leibniz(divisor, factor)
-    enjoy = enjoy + leibniz_cur
+    temp = temp + leibniz_cur
     divisor = divisor + 2
     factor = -1 * factor
 
-print(enjoy)
+print(temp)
    
 
 #. 2. Задайте натуральное число N. Напишите программу, которая составит список простых множителей числа N.
@@ -49,13 +49,12 @@ print(sort)
 
 # 4. Дана натуральная степень k. Сформировать случайным образом список коэффициентов (значения от 0 до 100) многочлена и записать в файл многочлен степени k.
 
-
 import random
 k = int(input('Укажите степень k:'))
 list_of_factor = []
 poly = str('X')
 holy = []
-enjoy = str
+temp = str
 j = k
 
 for i in range(k):
@@ -63,11 +62,11 @@ for i in range(k):
 
 for i in range(j):
     if i == k - 1:
-        enjoy = str(list_of_factor[i]) + poly
-        holy.append(enjoy)
+        temp = str(list_of_factor[i]) + poly
+        holy.append(temp)
     else:
-        enjoy = str(list_of_factor[i]) + poly + ('^') + str(j)
-        holy.append(enjoy)
+        temp = str(list_of_factor[i]) + poly + ('^') + str(j)
+        holy.append(temp)
     j = j - 1
     
 
@@ -75,7 +74,7 @@ result = str(holy[0]) + ' + '
 
 for i in range(1, k):
     if i == k - 1:
-        result = str(result) + str(holy[i]) + str(' = 0 ')
+        result = str(result) + str(holy[i]) + str(' + ') + str(random.randrange(1, 101)) + str(' = 0 ')
     else:
         result = str(result) + str(holy[i]) + str(' + ')
 
@@ -87,19 +86,3 @@ my_file.close()
 
 # 5. Даны два файла, в каждом из которых находится запись многочлена. Задача - сформировать файл, содержащий сумму многочленов.
 # Коэффициенты могут быть как положительными, так и отрицательными. Степени многочленов могут отличаться.
-
-with open("5_one.txt", "r") as file:
-    poly_1 = file.read()
-with open("5_one_too.txt", "r") as file:
-    poly_2 = file.read()
-
-poly_1 = str.replace(poly_1, "- ", "+ -").split()
-poly_2 = str.replace(poly_2, "- ", "+ -").split()
-
-poly_1 = list(filter(lambda x: x != "+" and x != "=" and x != "0", poly_1))
-
-print(poly_1)
-
-my_file = open("5_result.txt", "w+")
-my_file.write(poly_1)
-my_file.close()
