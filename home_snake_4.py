@@ -92,7 +92,6 @@ with open("5_one.txt", "r") as file:
 with open("5_one_too.txt", "r") as file:
     poly_2 = file.read()
 
-
 poly_1 = poly_1.split()
 poly_2 = poly_2.split()
 
@@ -116,12 +115,6 @@ else:
     for i in range(len(poly_2) + 1 - temp):
         poly_temp_exmax.append(poly_2[i + temp - 1])
 
-
-print(poly_max)
-print(poly_temp)
-print(poly_min)
-print(poly_temp_exmax)
-
 poly_min = (" ".join(poly_min))
 poly_temp_exmax = (" ".join(poly_temp_exmax))
 
@@ -135,23 +128,17 @@ def poly_cortege(poly_string):
 poly_min = poly_cortege(poly_min)
 poly_temp_exmax = poly_cortege(poly_temp_exmax)
 
-print(poly_min)
-print(poly_temp_exmax)
 poly_result = []
 
 for i in range(len(poly_min)):
     poly_result.append(int(poly_min[i][0]) + int(poly_temp_exmax[i][0]))
     poly_temp_exmax[i][0] = str(poly_result[i])
 
-print(poly_result)
-print(poly_temp_exmax)
-
 for i in range(len(poly_temp_exmax)):
     if i == len(poly_temp_exmax) - 1:
         poly_result[i] = str(poly_temp_exmax[i][0]) + " = 0"
     else:
         poly_result[i] = str(poly_temp_exmax[i][0]) + "*" + str(poly_temp_exmax[i][1]) + " +"
-
 
 poly_result = (" ".join(map(str,poly_result)))
 poly_result = str.replace(poly_result, "-", "- ")
